@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head> 
+      <meta http-equiv="content-type" content="text/html charset=UTF-8">
+        <title>ちんちん</title>
+        <link rel="stylesheet" type="text/css" href="./style.css" />
+
+  </head>
+  <body>
+<!-- メッセージ入力欄 -->
+<form action="#" id="chatForm">
+    <input id="m" autocomplete="off" placeholder="テキスト"/>
+    <button>Send</button>
+</form>
+<hr>
+
+<!-- メッセージの表示 -->
+<ul id="messages"></ul>
+
+<!--必須モジュール２つ-->
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+  var socket = io();
+  //var userName = 'test';
+  $(function () {
+var userName = '';
+    // メッセージを送信する
+    $('form').submit(function(){
+      socket.emit('chat message', $('#m').val());//, $('#u').val());
+      $('#m').val('');
+      return false;
+    });
+
+    // 受信したメッセージを表示
+    // ul id ="messages"の部分
+    socket.on('chat message', function(data){
+      var chat = " 『 " + data.message + " 』";
+      //if ((data.message != '') && (data.userName != '') ) {//空じゃない場合
+      $('#messages').append($('<p id="chat">').text(chat));//ユーザとテキストは前提条件
+    //  }
+    });
+  });
+</script>
+
+</body>
+</html>

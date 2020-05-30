@@ -1,0 +1,550 @@
+* {
+  margin: 0; padding: 0; box-sizing: border-box;
+  font-family: x14y24pxHeadUpDaisy;
+}
+#s{
+  margin-top: 150px;
+
+}
+
+#sredpage {
+background-color: rgba( 0, 88, 0, 0.45 );
+font-family:  cursive;
+  padding-top: 20px;
+padding-bottom: 100px;
+padding-right: 10px;
+padding-right :10px;
+   list-style-type: none;
+   margin:0px 15%;
+   cursor: pointer;
+   margin-bottom: 100px;
+
+}
+
+
+#sredpage li{
+  padding-top: 50px;
+padding-right: 50px;
+  padding-left :50px;
+   list-style-type: none;
+   margin-top:150px;
+   margin-left: 160px;
+   cursor: pointer;
+}
+#sredpage li{
+  cursor: pointer;
+    margin-top:50px;
+    width:70%;
+     font-size:24px;
+
+     vertical-align:top;
+        margin-left: 160px;
+     background: rgb(255,250,250);
+     ma
+}
+#sredpage li:nth-child(3+n){
+  cursor: pointer;
+  background-color: rgb(200,200,200);
+padding-right:  5%;
+
+}
+
+
+
+#nyutaimessa {
+  margin-top:450px;
+ top: 0;
+  margin-bottom:128px;
+  padding:  10px;
+  position: fixed;
+  background-color: rgba( 0, 0, 0, 0.55 );
+  width: 125px;
+  height: 40%;
+  border-right: solid 2px #ffffff;
+  /*float: left;*/
+  display: block;
+
+  overflow: scroll;
+
+}
+
+
+#nyutaimessa li{
+
+        padding: 12px 20px 20px 8px;
+        background: #ffffff;
+        background-size: 10px;
+        list-style-type: none;
+
+}
+
+
+
+
+
+#buttondaze{
+  width: 10%;
+  padding-top: 0.5%;
+  padding-bottom: 0.5%;
+  position: fixed;
+   background: rgb(130, 224, 255);
+   margin-left: 82%;
+   margin-bottom: 1%;
+   bottom: 5%;
+}
+#movepro{
+    position: fixed;
+    display: flex;
+   background-color: #ffffff;
+   color: #000000;
+  font-size: 14px;
+
+
+  margin-top:80px;
+  margin-left: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+cursor : pointer;
+
+
+}
+ #movesred{
+     position: fixed;
+     display: flex;
+   background-color: #ffffff;
+   color: #000000;
+  font-size: 14px;
+  margin:10px;
+  margin-top:180px;
+  margin-left: 0px;
+  padding-left: 1px;
+  padding-right: 7px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+cursor : pointer;
+ }
+ #movehome{
+     position: fixed;
+     display: flex;
+   background-color: #ffffff;
+   color: #000000;
+  font-size: 14px;
+
+  margin-top:280px;
+  margin-left: 0px;
+  padding-left: 3px;
+  padding-right: 14px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+cursor : pointer;
+ }
+#pro_modoru{
+  margin-bottom: 50px;
+
+}
+pre{
+  margin: 0px;
+}
+p{margin:0.2em 0em;text-indent:1em;}
+#g{
+  margin-left: 80px;
+  width: 800px;
+  height: 500px;
+}
+
+
+#text{
+  margin-left: 90px;
+  padding-top: 100px;
+  color: #ffffff;
+  font-size: 20px;
+}
+
+
+
+body{
+  height: 100vh; /* これを追加 */
+ overflow: scroll; /* ここのscrollが効かない */
+
+background: url('yozora.jpg') ;
+background-size: contain;
+}
+
+
+
+/**/
+/**/
+
+
+#messages {
+font-family:  cursive;
+  padding-top: 100px;
+/*padding-bottom: 100px;*/
+padding-right: 140px;
+padding-right :140px;
+   list-style-type: none;
+   margin-left: 20%;
+   margin-bottom: 150px;
+
+
+
+}
+#time{
+  color: green;
+  font-size: 20px;
+   float: right;
+   padding-bottom: 5px;
+}
+
+ #messages li{
+/*width: 50%; */
+      font-size:24px;
+      font-family:  cursive;
+      vertical-align:top;
+      padding: 12px 20px 20px 8px;
+      background: rgb(245,245,245);
+      /*border: thick outset  ;*/
+
+
+
+ }
+ #messages li:nth-child(even){
+
+
+ padding-right:  5%;
+
+ margin-bottom: 30px;
+ padding-bottom: 30px;
+ }
+#messages li:nth-child(odd){
+
+ background: rgb(220,220,220);
+padding: 1px 5px 1px 12px;
+/*padding-right:  5%;*/
+
+
+}
+
+
+
+
+
+/*#ch{
+  margin-right: 200px;
+
+  float: right;
+}*/
+ #okw{
+   padding:  10px;
+  /* margin-bottom: 5px;*/
+   position: fixed;
+   background-color: rgba( 0, 0, 0, 0.55 );
+   width: 125px;
+   height: 100%;
+   border-right: solid 2px #ffffff;
+   /*float: left;*/
+
+   display: flex;
+
+
+ }
+ #okw{
+  color: #ffffff;
+  padding-bottom: 10px;
+
+ }
+
+#hensyu{
+  padding-top: 50px;
+  margin-left: 80px;
+}
+
+
+
+ #chatForm textarea{
+   border: 0; padding: 10px; width: 64%;   margin-right: 0.5%; margin-left: 16%;position: fixed;
+   height: 8%;
+   bottom: 5%;
+ }
+ #chatForm button{
+   width: 10%;
+   padding-top: 0.5%;
+   padding-bottom: 0.5%;
+   position: fixed;
+    background: rgb(130, 224, 255);
+    margin-left: 82%;
+    margin-bottom: 1%;
+    bottom: 5%;
+ }
+
+ #chatForm{
+   background-color: #ff0000;
+ }
+
+
+
+/****/
+
+
+
+html {
+
+}
+
+body {
+    overflow: scroll;
+height: 100vh; /* これを追加 */
+
+  margin: 0;
+  background: url('umi.jpg') no-repeat center center fixed;
+  background-size: 1000%: auto;
+  color: #0a0a0b;
+
+   overflow: scroll; /* ここのscrollが効かない */
+}
+
+ul, nav{
+  list-style: none;
+  padding: 0;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+a:hover {
+  opacity: 1;
+}
+
+#q {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 1.5rem;
+}
+
+i {
+  font-size: 1.3rem;
+}
+
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  padding: 10px 100px 0;
+}
+
+#profileForm  {
+
+  width: 100%;
+
+  padding: 20px 50px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+}
+#hensyu #btnprofile{
+  background: #ef3f5a;
+  border: 1px solid #ef3f5a;
+  color: #fff;
+  padding: 0 30px;
+  cursor: pointer;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+#hensyu #btnprofile:hover{
+  background: #d73851;
+  border: 1px solid #d73851;
+}
+
+
+#hensyu > * {
+  border: 0;
+  padding: 0 0 0 10px;
+  background: #fff;
+  line-height: 50px;
+  font-size: 1rem;
+  border-radius: 0;
+  outline: 0;
+  -webkit-appearance: none;
+}
+
+#akahen{
+  margin-top: 100px;
+    color: #ffffff;
+}
+.cover  {
+  height: 100vh;
+  width: 100%;
+
+  padding: 20px 50px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+#login #oi{
+  background: #ef3f5a;
+  border: 1px solid #ef3f5a;
+  color: #fff;
+  padding: 30px 30px 30px 30px;
+  cursor: pointer;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+#login #oi:hover{
+  background: #d73851;
+  border: 1px solid #d73851;
+}
+
+#login{
+  display: -webkit-box;
+  display: flex;
+  z-index: 10;
+  position: relative;
+  width: 600px;
+
+}
+
+#login > * {
+  border: 0;
+  padding: 0 0 0 10px;
+  background: #fff;
+  line-height: 50px;
+  font-size: 1rem;
+  border-radius: 0;
+  outline: 0;
+  -webkit-appearance: none;
+}
+/**/
+#form #sakku{
+  background: #ef3f5a;
+  border: 1px solid #ef3f5a;
+  color: #fff;
+  padding: 30px 30px 30px 30px;
+  cursor: pointer;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+#form #sakku:hover{
+  background: #d73851;
+  border: 1px solid #d73851;
+}
+
+#form{
+  display: -webkit-box;
+  display: flex;
+  z-index: 10;
+  position: relative;
+  width: 600px;
+
+}
+
+#form > * {
+  border: 0;
+  padding: 0 0 0 10px;
+  background: #fff;
+  line-height: 50px;
+  font-size: 1rem;
+  border-radius: 0;
+  outline: 0;
+  -webkit-appearance: none;
+}
+
+input[type="search"] {
+  flex-basis: 500px;
+}
+
+#madeby {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 25px 100px;
+  color: #fff;
+}
+
+#title{
+    color: #ffffff;
+    position: fixed;
+    display: flex;
+    font-size: 50px;
+    margin-left: 50%;
+    background-color: rgba( 0, 0, 0, 0.75 );
+    padding: 10px;
+}
+#title-title{
+font-size: 50px;
+}
+#logo{
+    margin-left: 10px;
+}
+#sred input{
+    border: 0; padding: 10px; width: 64%;   margin-right: 0.5%; margin-left: 16%;position: fixed;
+    height: 8%;
+    bottom: 5%;
+}
+#sred button{
+ width: 10%;
+ padding-top: 0.5%;
+ padding-bottom: 0.5%;
+ position: fixed;
+  background: rgb(130, 224, 255);
+  margin-left: 82%;
+  margin-bottom: 1%;
+  bottom: 5%;
+  background-color: #00ff00;
+}
+#sredpage{
+    cursor: default;
+}
+#st{
+    top: 5px;
+    background-color: rgba( 0, 0, 0, 0.75 );
+    color: #ffffff;
+    font-size: 30px;
+    margin-left: 40%;
+    position: fixed;
+    padding: 10px;
+}
+
+#yourname{
+  color: #ffffff;
+  margin-bottom: 30px;
+  background-color: rgba( 0, 55, 55, 0.55 );
+  padding: 20px;
+
+}
+#restatus{
+
+}

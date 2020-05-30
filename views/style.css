@@ -1,0 +1,13 @@
+#messages {
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    border: solid 3px #9facd4;
+
+}
+
+#chat {
+    margin-top: 1px;
+    padding: 2px;
+    background-color: rgb(218, 246, 255);
+    color: #292929;
+}

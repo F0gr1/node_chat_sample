@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CFP</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel='stylesheet' href='/public/css/index.css' />
+    <script type="text/javascript" src="/public/js/back.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+
+  </head>
+  <body>
+    <!-- 動画背景 -->
+
+ <!-- 背景用の動画ファイル -->
+ <!-- <video id="bg-video" src="public/af.mp4" autoplay loop></video> -->
+ <!-- 背景の上に表示させたいコンテンツ -->
+
+
+    <header id="okw">
+      	    <h1 id="logo">CFP</h1>
+            <form id="movepro">
+              <p id="mpb">プロフィール<br>&nbsp;&nbsp;&nbsp;編集</p>
+            </form>
+            <form id="movesred">
+                  <p id="msre">スレッド<br>&nbsp;選択画面</p>
+                </form>
+            <form id="movehome">
+              <p id="mho">ログアウト</p>
+            </form>
+    </header>
+
+    <div id="title"><h1 id="title-title"></h1></div>
+
+    <ul  id="messages">
+    </ul >
+
+   <ul id="nyutaimessa">
+    </ul>
+
+    <ul id="sredpage" class="all">
+      <% lo2.forEach(function (data) { %>
+        <li id="oppai" class="some-item" ><%- data %></li>
+      <% }); %>
+   </ul>
+
+
+
+      <header class="site-header">
+      　　　　 <h2><a href="#"><i class="ion-plane"></i> CFP</a></h2>
+
+      </header>
+      <!--プロフィール-->
+       <form id="profileForm">
+               <h1 id=yourname></h1>
+
+               <h1 id="akahen">アカウント情報編集</h1>
+         <div id="hensyu">
+              <input id="reusername" name="reusername" type="text" class="form-control" placeholder="ユーザ名" autofocus />
+              <input id="repassword" name="repassword" type="password" class="form-control" placeholder="パスワード" autofocus />
+           <button id="btnprofile">編集</button>
+
+         </div>
+         <button id="pro_modoru">戻る</button>
+       </form>
+
+
+
+    <div id="text">
+      ページ遷移をしない、ロードの煩わしさを排除したリアルタイム電子掲示板です。<br>
+      ログイン、又はアカウントを作成した後ログインをして下さい。
+    </div>
+
+	<!-- ログインフォーム -->
+  <div class="cover">
+
+  <h1 id="q">ログイン</h1>
+	<form id="login">
+    <label for="from">
+      <i class="ion-location"></i>
+    </label>
+	       <input id="username" type="text" placeholder="ユーザ名" autofocus />
+         <input id="password" name="password" type="password" class="form-control" placeholder="パスワード"/>
+	    <button id="oi">ログイン</button>
+	</form>
+<h1 id="q">アカウント作成</h1>
+  <form id="form">
+    <label for="from">
+      <i class="ion-location"></i>
+    </label>
+      <input class="username2" type="text" name="username2" maxlength="20" autocomplete="OFF" placeholder="ユーザ名"/>
+      <input class="password2"  type="password" name="password2" maxlength="20" autocomplete="OFF" placeholder="パスワード"/>
+      <!-- <input type="checkbox" name="checkbox" ></input> <p id="ch">パスワードを保存</p> -->
+      <button id="sakku">作成</button>
+  </form>
+</div>
+<!--スレッド入力 -->
+<h1 id="st">スレッド選択・作成</h1>
+<form  class = "sred" id="sred" >
+  <div>
+          <input id="s"   type ='text' class ="sredname" name="sredname" placeholder="スレッド作成" >
+          <button id="Sredbtn">作成</button>
+
+  </div>
+</form>
+
+
+	<!-- メッセージ入力欄 -->
+  <form action="#" id="chatForm">
+
+      <textarea id="m" name="m" rows="50" cols="300"  wrap="hard" maxlength="70" ></textarea>
+
+
+  <button id="button">送信</button>
+  </form>
+
+
+
+
+
+
+
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+    <script>
+              var socket = io.connect();
+              var reuserName = '';
+              var repassWord = '';
+              var userName = '';
+              var passWord = '';
+              var userName2 = '';
+              var passWord2 = '';
+              var num=0;
+              var isEnter = false;
+
+                // ログイン画面表示
+                $('.cover').show();
+                $('#chatForm').hide();
+                $('#st').hide();
+                $('#messages').hide();
+                $('#profileForm').hide();
+                $('#movepro').hide();
+                $('#title').hide();
+                $('#movehome').hide();
+                $('#okw').hide();
+                $('#sredpage').hide();
+                $('#sred').hide();
+                $('#movesred').hide();
+                $('#nyutaimessa').hide();
+                // 垢処理
+                $('#sakku').on('click', function() {
+                  console.log("osareta");
+                  userName2 = $('.username2').val();
+                  passWord2 = $('.password2').val();
+                  if (userName2&&passWord2) {
+
+                    // ユーザ情報をサーバへ通知する
+                    socket.emit('acount', {
+                      userID2: socket.id,
+
+                      userName2: userName2,
+
+                      passWord2: passWord2
+
+
+                    });
+                    socket.on('kekkaa', function(info){
+                      if (info.flg2==1) {
+                      //  alert("アカウント作成しました");
+                        $('#username2').val('');
+                        $('#password2').val('');
+
+                      }
+                      if (info.flg2!=1) {
+
+                        $('.username2').val('');
+                        $('.password2').val('');
+                        $('.username2').attr('placeholder', 'そのアカウント名は既に使われています');
+                        $('.password2').attr('placeholder', '');
+
+                      }
+                    });
+
+                    socket.on('TUTI', function(info){
+                      if (info.flg2==1) {
+                        alert("アカウント作成しました");
+                //        $('#username2').val('');
+                //        $('#password2').val('');
+
+                      }
+                      if (info.flg2==0) {
+
+                        alert("アカウントは既に使われています。");
+                  /*      $('.username2').val('');
+                        $('.password2').val('');
+                        $('.username2').attr('placeholder', 'そのアカウント名は既に使われています');
+                        $('.password2').attr('placeholder', '');
+                  */
+
+                      }
+                    });
+
+                  }
+                  e.preventDefault();
+
+                });
+                flg=0;
+
+                $('#btnstatus').on('click', function (e) {
+                          restatus = $('#restatus').val();
+                          if(restatus){
+                            socket.emit('pro1',function(pro1){
+                            });
+                            socket.emit('prosta',{
+                              reStatusk : restatus
+                            });
+                            socket.on('prostak', function(info){
+
+                              if (info.flg==0) {
+
+                                socket.emit('sakana', {
+
+                                });
+                              $('.cover').hide();
+                              $("#title").hide();
+                              $('#profileForm').hide();
+                              $('#g').hide();
+                              $('.site-header').hide();
+                              $('.header-change').hide();
+                              $('#chatForm').hide();
+                              $('#messages').hide();
+                              $('#text').hide();
+                              $('#movepro').show();
+                              $('#st').show();
+                              $('#movehome').show();
+                              $('#okw').show();
+                              $('#sredpage').show();
+                              $('#sred').show();
+                              $('#movesred').css('background-color','#dddddd');
+                              $('#movepro').css('background-color','#ffffff');
+                              $('#messages').empty();
+                              $('#nyutaimessa').hide();
+                              socket.emit('leave', {
+
+
+                              });
+
+                              var doch = $(document).innerHeight(); //ページ全体の高さ
+                              var winh = $(window).innerHeight(); //ウィンドウの高さ
+                              var bottom = doch - winh; //ページ全体の高さ - ウィンドウの高さ = ページの最下部位置
+                              $(window).scrollTop(bottom);
+
+                              }
+                           });
+                          }
+                })
+
+                // プロフィール処理
+                 $('#btnprofile').on('click', function (e) {
+                          reuserName = $('#reusername').val();
+                          repassWord = $('#repassword').val();
+
+                          if(reuserName || repassWord) {
+                              socket.emit('pro1',function(pro1){
+                              });
+                                socket.emit('profilek', {
+                                  userIDk: socket.id,
+                                  reuserNamek: reuserName,
+                                  repassWordk: repassWord
+
+                                });
+                                socket.on('pkekka', function(info){
+
+                                  if (info.flg==0) {
+
+                                       socket.emit('awabi', {
+
+                                       });
+                                       socket.emit('pro1',function(pro1){
+
+                                       });
+
+
+                                     $('.cover').hide();
+                                     $("#title").hide();
+                                     $('#chatForm').hide();
+                                     $('#messages').hide();
+                                     $('#profileForm').show();
+                                     $('#movepro').show();
+                                     $('#st').hide();
+                                     $('#movehome').show();
+                                     $('#movesred').show();
+                                     $('#sredpage').hide();
+                                     $('#sred').hide();
+                                     $('#movepro').css('background-color','#dddddd');
+                                     $('#movechat').css('background-color','#ffffff');
+                                     $('#movesred').css('background-color','#ffffff');
+                                     $('#nyutaimessa').hide();
+                                  }
+
+                                  if (info.flg==1){
+                                    $('#reusername').val('');
+                                    $('#repassword').val('');
+                                    $('#reusername').attr('placeholder', 'そのユーザーネームはすでに存在しています');
+
+
+                                  }
+
+                               });
+                          }
+                          e.preventDefault();
+                    });
+
+                    socket.on('pro2',function(pro2){
+                      var p2name = pro2.p2na;
+                      var p2status = pro2.p2sta;
+                      if(p2status==null){
+                        $('#yourname').html("<h1>"+p2name+"</h1>");
+                      }else{
+                        $('#yourname').html("<h1>"+p2name+"</h1>");
+                        $('#yourstatus').html("<h2>"+p2status+"</h2>");
+                      }
+                    });
+
+
+                    //メニューのやつら
+                       var num=0;
+                       $('#movepro').on('click', function (e) {
+                           socket.emit('awabi', {
+
+                           });
+                      /*     io.to(soket.id).emit('hokuro', {
+
+                      });*/
+                      socket.emit('hokuro', {
+
+                      });
+                           socket.emit('pro1',function(pro1){
+
+                           });
+                         $('.cover').hide();
+                         $("#title").hide();
+                         $('#chatForm').hide();
+                         $('#messages').hide();
+                         $('#profileForm').show();
+                         $('#movepro').show();
+                         $('#st').hide();
+                         $('#movehome').show();
+                         $('#movesred').show();
+                         $('#sredpage').hide();
+                         $('#sred').hide();
+                         $('#movepro').css('background-color','#dddddd');
+                         $('#movechat').css('background-color','#ffffff');
+                         $('#movesred').css('background-color','#ffffff');
+                         $('#nyutaimessa').hide();
+                       });
+
+
+
+                       $('#movesred').on('click', function (e) {
+                         socket.emit('oono',{
+
+                         });
+                           socket.emit('sakana', {
+
+                           });
+
+                         $('.cover').hide();
+                         $("#title").hide();
+                         $('#profileForm').hide();
+                         $('#g').hide();
+                         $('.site-header').hide();
+                         $('.header-change').hide();
+                         $('#chatForm').hide();
+                         $('#messages').hide();
+                         $('#text').hide();
+                         $('#movepro').show();
+                         $('#st').show();
+                         $('#movehome').show();
+                         $('#okw').show();
+                         $('#sredpage').show();
+                         $('#sred').show();
+                         $('#movesred').css('background-color','#dddddd');
+                         $('#movepro').css('background-color','#ffffff');
+                         $('#messages').empty();
+                         $('#nyutaimessa').hide();
+                         socket.emit('leave', {
+
+
+                         });
+
+                         var doch = $(document).innerHeight(); //ページ全体の高さ
+                         var winh = $(window).innerHeight(); //ウィンドウの高さ
+                         var bottom = doch - winh; //ページ全体の高さ - ウィンドウの高さ = ページの最下部位置
+                         $(window).scrollTop(bottom);
+                       });
+
+                       $('#pro_modoru').on('click', function() {
+                           socket.emit('awabi', {
+
+                           });
+                           socket.emit('hokuro', {
+
+                           });
+                         $('.cover').hide();
+                         $("#title").show();
+                         $('#chatForm').show();
+                         $('#messages').show();
+                         $('#profileForm').hide();
+                         $('#movepro').show();
+                         $('#movesred').show();
+                         $('#movehome').show();
+                         $('#st').hide();
+                         $('#movepro').css('background-color','#ffffff');
+                         $('#nyutaimessa').hide();
+                         var doch = $(document).innerHeight(); //ページ全体の高さ
+                         var winh = $(window).innerHeight(); //ウィンドウの高さ
+                         var bottom = doch - winh; //ページ全体の高さ - ウィンドウの高さ = ページの最下部位置
+                         $(window).scrollTop(bottom)
+                       });
+                       $('#movehome').on('click', function() {
+                           socket.emit('awabi', {
+
+                           });
+                           socket.emit('hokuro', {
+
+                           });
+                         $('.cover').show();
+                         $('#form').show();
+                         $('#chatForm').hide();
+                         $("#title").hide();
+                         $('#st').hide();
+                         $('#messages').hide();
+                         $('#profileForm').hide();
+                         $('#movepro').hide();
+                         $('#sredpage').hide();
+                         $('#sred').hide();
+                         $('#movehome').hide();
+                         $('#movesred').hide();
+                         $('#okw').hide();
+                         $('#movepro').css('background-color','#ffffff');
+                         $('#nyutaimessa').hide();
+                       });
+
+                       socket.on('nyutai', function(into){
+                         aisatu =  into.username +"さんが入室しました。"
+                      //  alert( aisatu) ;
+                              $('#nyutaimessa').append("<li>" +  aisatu   + "</li>");
+                              var doch = $(document).innerHeight(); //ページ全体の高さ
+                              var winh = $(window).innerHeight(); //ウィンドウの高さ
+                              var bottom = doch - winh; //ページ全体の高さ - ウィンドウの高さ = ページの最下部位置
+                              $(window).scrollTop(bottom)
+                      });
+                  // ログイン処理
+                      socket.on('oono',function(jam){
+                        aisatu2 = jam.username + "さんが退出しました。"
+                    $('#nyutaimessa').append("<li>" +  aisatu2   + "</li>");
+                    var doch = $(document).innerHeight(); //ページ全体の高さ
+                    var winh = $(window).innerHeight(); //ウィンドウの高さ
+                    var bottom = doch - winh; //ページ全体の高さ - ウィンドウの高さ = ページの最下部位置
+                    $(window).scrollTop(bottom)
+                      });
+
+
+                     $('#oi').on('click', function() {
+
+                              userName = $('#username').val();
+                              passWord = $('#password').val();
+
+
+                              if(userName&&passWord) {
+
+                                    socket.emit('logink', {
+                                      userIDk: socket.id,
+                                      userNamek: userName,
+                                      passWordk:passWord
+
+                                    });
+                                    socket.on('kekka', function(info){
+
+                                      if (info.flg==1) {
+                                          socket.emit('sakana', {
+
+                                          });
+
+                                    socket.on('kusyon', function(info){
+                                        $('.cover').hide();
+
+                                        $('#g').hide();
+                                        $('.site-header').hide();
+                                        $('.header-change').hide();
+                                        $('#chatForm').hide();
+                                        $('#messages').hide();
+                                        $('#text').hide();
+                                        $('#movepro').show();
+                                        $('#st').show();
+                                        $('#movesred').show();
+                                        $('#movehome').show();
+                                        $('#okw').show();
+                                        $('#sredpage').show();
+                                        $('#sred').show();
+                                        $('#movesred').css('background-color','#dddddd');
+                                        $('#nyutaimessa').hide();
+                                        $('#Sredbtn').on('click', function(e){
+                                          /*  $('form').submit(function(){*/
+                                              if(($('#s').val()) ==''){
+                                                return false;
+                                              }
+                                          /*  });*/
+                                          socket.emit('S',{
+                                               sred:$('#s').val()
+                                          });
+                                          $('#s').val('');
+                                          return false;
+                                          e.preventDefault();
+                                        });
+
+                                        var doch = $(document).innerHeight(); //ページ全体の高さ
+                                        var winh = $(window).innerHeight(); //ウィンドウの高さ
+                                        var bottom = doch - winh; //ページ全体の高さ - ウィンドウの高さ = ページの最下部位置
+                                        $(window).scrollTop(bottom)
+
+                                        socket.emit('getstatus',{
+
+                                        });
+
+                                        socket.emit('login', {
+                                          userID: socket.id,
+                                          userName: userName,
+                                          passWord:passWord
+                                        });
+                                    });
+
+
+                                    }
+
+                                      if (info.flg==0){
+                                        $('#username').val('');
+                                        $('#password').val('');
+                                        $('#username').attr('placeholder', 'ユーザネーム情報が間違っています');
+                                        $('#password').attr('placeholder', 'パスワード情報が間違っています');
+
+                                              //間違えるたびログイン後のチャットの数が増えてしまう
+                                      }
+
+                                   });
+
+
+                               }
+                            e.preventDefault();
+
+
+
+                    });
+                    socket.on('S2', function(sred){
+                //        alert("s2 "+sred.sred);
+
+                        socket.emit('S3', {
+                            sred:sred.sred
+                        });
+                    });
+                    $('#saku').on('click',function(){
+
+                      $('form').submit(function(){
+                        if(($('#ss').val()) ==''){
+                          return false;
+                        }
+                      });
+                      socket.emit('SA', $('#ss').val()  );
+                      $('#ss').val('');
+                      return false;
+
+                    });
+
+
+                    socket.on('N', function(messa){
+
+                      alert(messa.sred);
+                    var  sred =  messa.sred;
+                      var html ='<li id="oppai">' +sred + '</li>';
+                      $('#sredpage').append(html);
+
+                    });
+                    var i=0
+                    var index ="";
+                    var lo4='';
+                    $(document).on('click',"#oppai", function (e) {
+                        socket.emit('awabi', {
+
+                        });
+
+                       // 引数にthisを指定し、クリックした順番を変数に格納
+                         var i = $('#sredpage li').index(this);
+                         // 順番を表示
+
+
+                         socket.emit('SO', {
+                           Sp:i,
+
+                         });
+
+                                            socket.on('SQ', function(info){
+
+
+                                              lo4 = info.lo4;
+                                              $('#title-title').text(lo4);
+                                                     $('#loginForm').hide();
+                                                     $('#form').hide();
+                                                     $('#chatForm').show();
+                                                     $('#messages').show();
+                                                     $('#sredpage').hide();
+                                                     $("#sred").hide();
+                                                     $('#st').hide();
+                                                     $("#title").show();
+                                                     $('#movesred').css('background-color','#ffffff');
+                                                     $('#nyutaimessa').show();
+                                                    //         alert(lo4);
+
+                                            });
+
+
+
+                    });
+
+
+                                // メッセージを送信するyyyyyyyy
+
+
+
+                      var unt=0;
+                      var tim;
+                      var id;
+                      var chat;
+            $('form').submit(function(){
+                        if ( ( $('#m').val() )=='') {
+                         return false;
+                        }
+
+
+                socket.emit('chat message', {
+
+                        msg:$('#m').val()
+                });
+                        $('#m').val('');
+                          return false;
+                          e.preventDefault();
+            });
+
+               //過去ログ
+                 socket.on('chat', function(iii){
+                     //今日の日付データを変数hidukeに格納
+                     var hiduke=new Date();
+
+                     var year = hiduke.getFullYear();
+                     var month = hiduke.getMonth()+1;
+                     var week = hiduke.getDay();
+                     var day = hiduke.getDate();
+                     var hour = hiduke.getHours();
+                     var minute = hiduke.getMinutes();
+                     var second = hiduke.getSeconds();
+
+
+
+                     var tim="<span id=\"time\">"+year+"/"+month+"/"+day+" : "+hour+"h/"+minute+"m/"+second+"s"+"</span>";
+                   var id =iii.name;
+                   var chat = iii.chat;
+                   var chat=chat.replace( /\n/g, '<br>')+"<br>";
+                   var chat=chat.replace( / /g, '&nbsp;');
+                   $('#messages').append('<li>'+id+'</li>');
+                   $('#messages').append('<li>'+chat+tim+'</li>');
+               });
+
+               var tim;
+               var idd;
+               var chat;
+               var gam=0;
+
+                 socket.on('yesok', function(data){
+                     //今日の日付データを変数hidukeに格納
+                     var hiduke=new Date();
+
+                     var year = hiduke.getFullYear();
+                     var month = hiduke.getMonth()+1;
+                     var week = hiduke.getDay();
+                     var day = hiduke.getDate();
+                     var hour = hiduke.getHours();
+                     var minute = hiduke.getMinutes();
+                     var second = hiduke.getSeconds();
+
+
+                     idd =data.userName+"<br>";
+                     tim="<span id=\"time\">"+year+"/"+month+"/"+day+" : "+hour+"h/"+minute+"m/"+second+"s"+"</span>";
+
+                     chat=data.message.replace( /\n/g, '<br>')+"<br>";
+                     chat=chat.replace( / /g, '&nbsp;');
+                     socket.emit('log', {
+                       id: idd,
+                       chat: chat,
+                       time: tim,
+                       pp:lo4
+                     });
+                 });
+                 var tim;
+                 var id;
+                 var chat;
+
+                      // 受信したメッセージを表示
+                      socket.on('chat message2', function(data){
+                        $('#loginForm').hide();
+                        $('#form').hide();
+                        $('#chatForm').show();
+                        $('#messages').show();
+                        $('#sredpage').hide();
+                        $("#sred").hide();
+                      //  $('#nyutaimessa').show();
+                        //今日の日付データを変数hidukeに格納
+                        var hiduke=new Date();
+
+                        var year = hiduke.getFullYear();
+                        var month = hiduke.getMonth()+1;
+                        var week = hiduke.getDay();
+                        var day = hiduke.getDate();
+                        var hour = hiduke.getHours();
+                        var minute = hiduke.getMinutes();
+                        var second = hiduke.getSeconds();
+
+                          id =data.userName+"<br>";
+
+
+
+
+
+                        tim="<span id=\"time\">"+year+"/"+month+"/"+day+" : "+hour+"h/"+minute+"m/"+second+"s"+"</span>";
+
+                        chat=data.message.replace( /\n/g, '<br>')+"<br>";
+                        chat=chat.replace( / /g, '&nbsp;');
+
+                        //console.log("おいおいおいおい"+data.message.indexOf("abc"));
+
+
+                            $('#messages').append("<li>"+id+"</li>");
+                            $('#messages').append('<li>'+chat+tim+'</li>');
+                            //num++;
+                            var doch = $(document).innerHeight(); //ページ全体の高さ
+                            var winh = $(window).innerHeight(); //ウィンドウの高さ
+                            var bottom = (doch - winh); //ページ全体の高さ - ウィンドウの高さ = ページの最下部位置
+                            $(window).scrollTop(bottom);
+
+
+
+
+
+
+
+                      });
+
+
+                      socket.on('QL', function(data){
+
+                          socket.emit('QL2', {
+                              pp:data.pp,
+                              id:data.id,
+                              chat:data.chat,
+                              time:data.time
+                          });
+                      });
+
+
+
+
+
+
+    </script>
+<script type="text/javascript" src="/public/js/index.js"></script>
+  </body>
+</html>
