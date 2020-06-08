@@ -7,11 +7,13 @@ const path = require('path');
 const io = require('socket.io')(http);
 const PORT = process.env.PORT || 4649;
 
-app.get('/' , function(req, res){
+app.get('/chat' , function(req, res){
     res.sendFile(__dirname+'/views/landing.html');//chat.htmlへ移動
 });
 
-
+app.get('/',function(req,res){
+	res.sendFile(__dirname+'/views/home.html');
+});
 
 io.on('connection',function(socket){
     console.log("connections"); 
